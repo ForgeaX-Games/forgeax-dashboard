@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import { X, LayoutDashboard, MessagesSquare, Layers, BarChart3 } from 'lucide-react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { useTranslation } from '@forgeax/interface/i18n';
-import { useAppStore } from '@forgeax/interface/store';
+import { useShellStore } from '@forgeax/interface/store';
 import { Overview } from './Overview';
 import { SessionsList } from './ThreadsList';
 import { Analytics } from './Analytics';
@@ -37,8 +37,8 @@ const EMPTY_COUNTS: DashCounts = { sessions: null };
 
 export function Dashboard() {
   const { t } = useTranslation();
-  const open = useAppStore((s) => s.activeOverlay === 'dashboard');
-  const closeOverlay = useAppStore((s) => s.closeOverlay);
+  const open = useShellStore((s) => s.activeOverlay === 'dashboard');
+  const closeOverlay = useShellStore((s) => s.closeOverlay);
   const [page, setPage] = useState<DashPage>('overview');
   const [counts, setCounts] = useState<DashCounts>(EMPTY_COUNTS);
 

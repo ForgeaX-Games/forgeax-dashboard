@@ -4,7 +4,7 @@
   "private": false,
   "license": "Apache-2.0",
   "type": "module",
-  "description": "forgeax dashboard L2 app — the Overview / Sessions / Analytics overlay. Session/telemetry state lives in @forgeax/interface's L1 store; this package is the UI over it.",
+  "description": "forgeax dashboard L2 app — Overview, Sessions, Analytics, and status/telemetry presentation.",
   "repository": {
     "type": "git",
     "url": "https://github.com/ForgeaX-Games/forgeax-studio.git",
@@ -22,6 +22,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@forgeax/design": "workspace:*",
     "@forgeax/interface": "workspace:*",
     "@radix-ui/react-dialog": "^1.1.2",
     "lucide-react": "^0.460.0",

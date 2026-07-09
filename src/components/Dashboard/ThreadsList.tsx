@@ -16,7 +16,7 @@ import {
   type SessionListItem,
   type SessionAgentSummary,
 } from '@forgeax/interface/lib/dashboard-api';
-import { useAppStore } from '@forgeax/interface/store';
+import { useShellStore } from '@forgeax/interface/store';
 
 function shortSid(sid: string): string {
   return sid.length > 8 ? sid.slice(0, 8) : sid;
@@ -28,9 +28,9 @@ export function SessionsList() {
   const [query, setQuery] = useState('');
   const [err, setErr] = useState<string | null>(null);
 
-  const switchToSession = useAppStore((s) => s.switchToSession);
-  const closeOverlay = useAppStore((s) => s.closeOverlay);
-  const activeSid = useAppStore((s) => s.activeSid);
+  const switchToSession = useShellStore((s) => s.switchToSession);
+  const closeOverlay = useShellStore((s) => s.closeOverlay);
+  const activeSid = useShellStore((s) => s.activeSid);
 
   const refreshSessions = async (): Promise<void> => {
     try {
