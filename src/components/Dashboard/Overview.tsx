@@ -17,7 +17,7 @@ import {
   type ProviderHealth,
 } from '@forgeax/interface/lib/dashboard-api';
 import { listBusPlugins } from '@forgeax/interface/lib/bus-api';
-import { useShellStore } from '@forgeax/interface/store';
+import { useAppStore } from '@forgeax/interface/store';
 import { emitDeepLink, clearDeepLink } from '@forgeax/interface/lib/deep-link-bus';
 import { useTranslation } from '@forgeax/interface/i18n';
 
@@ -80,9 +80,9 @@ export function Overview() {
   const [surfaces, setSurfaces] = useState<{ count: number; aiActions: number; totalActions: number } | null>(null);
   const [kindCounts, setKindCounts] = useState<Map<string, number> | null>(null);
 
-  const switchToSession = useShellStore((s) => s.switchToSession);
-  const closeOverlay = useShellStore((s) => s.closeOverlay);
-  const openOverlay = useShellStore((s) => s.openOverlay);
+  const switchToSession = useAppStore((s) => s.switchToSession);
+  const closeOverlay = useAppStore((s) => s.closeOverlay);
+  const openOverlay = useAppStore((s) => s.openOverlay);
   const goBus = (): void => {
     clearDeepLink('bus:filter-kind');
     openOverlay('settings', 'plugins');
