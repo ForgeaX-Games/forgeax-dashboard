@@ -15,7 +15,7 @@ import {
   type SessionListItem,
   type SessionAgentSummary,
 } from '@forgeax/interface/lib/dashboard-api';
-import { listBusPlugins, type BusPluginInfo } from '@forgeax/interface/lib/bus-api';
+import { listExtensions, type ExtensionInfo } from '@forgeax/interface/lib/extension-api';
 import { useShellStore } from '@forgeax/interface/store';
 import { emitDeepLink, clearDeepLink } from '@forgeax/interface/lib/deep-link-bus';
 import { useTranslation } from '@forgeax/interface/i18n';
@@ -62,7 +62,7 @@ export function Analytics() {
   const [sessions, setSessions] = useState<SessionListItem[]>([]);
   const [summaries, setSummaries] = useState<Map<string, SessionAgentSummary>>(new Map());
   const [busHealth, setBusHealth] = useState<BusHealth | null>(null);
-  const [busPlugins, setBusPlugins] = useState<BusPluginInfo[] | null>(null);
+  const [busPlugins, setBusPlugins] = useState<ExtensionInfo[] | null>(null);
   const [surfaces, setSurfaces] = useState<{ count: number; aiActions: number; totalActions: number } | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
@@ -90,7 +90,7 @@ export function Analytics() {
         const [s, h, p] = await Promise.all([
           dashApi.sessions(),
           dashApi.health().catch(() => null),
-          listBusPlugins().catch(() => null),
+          listExtensions().catch(() => null),
         ]);
         setSessions(s.sessions);
         if (h?.bus) setBusHealth(h.bus);

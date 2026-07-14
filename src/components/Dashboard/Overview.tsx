@@ -16,7 +16,7 @@ import {
   type SessionAgentSummary,
   type ProviderHealth,
 } from '@forgeax/interface/lib/dashboard-api';
-import { listBusPlugins } from '@forgeax/interface/lib/bus-api';
+import { listExtensions } from '@forgeax/interface/lib/extension-api';
 import { useShellStore } from '@forgeax/interface/store';
 import { emitDeepLink, clearDeepLink } from '@forgeax/interface/lib/deep-link-bus';
 import { useTranslation } from '@forgeax/interface/i18n';
@@ -140,7 +140,7 @@ export function Overview() {
 
   useEffect(() => {
     let cancelled = false;
-    listBusPlugins('cli-provider')
+    listExtensions('cli-provider')
       .then((r) => { if (!cancelled) setKnownProviderIds(new Set(r.items.map((p) => shortCliId(p.id)))); })
       .catch(() => { if (!cancelled) setKnownProviderIds(new Set()); });
     return () => { cancelled = true; };
@@ -148,7 +148,7 @@ export function Overview() {
 
   useEffect(() => {
     let cancelled = false;
-    listBusPlugins()
+    listExtensions()
       .then((r) => {
         if (cancelled) return;
         const m = new Map<string, number>();
