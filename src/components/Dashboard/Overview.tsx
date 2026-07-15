@@ -22,7 +22,9 @@ import { emitDeepLink, clearDeepLink } from '@forgeax/interface/lib/deep-link-bu
 import { useTranslation } from '@forgeax/interface/i18n';
 
 function shortCliId(busId: string): string {
-  return busId.replace(/^@forgeax-plugin\/cli-/, '');
+  // Current @forgeax-extension/* namespace first; @forgeax-plugin/* keeps
+  // matching pre-M3 ids (kernel scanner's sanctioned legacy normalize).
+  return busId.replace(/^@forgeax-(extension|plugin)\/cli-/, '');
 }
 
 function shortSid(sid: string): string {
@@ -54,7 +56,7 @@ function StatCard({ label, value, tone, onClick, title }: {
 }
 
 interface BusStats {
-  pluginCount: number;
+  extensionCount: number;
   brokenCount: number;
   listenerCount: number;
   ringSize: number;
@@ -256,10 +258,10 @@ export function Overview() {
           <div className="dash-stat-row dash-stat-row-bus">
             <StatCard
               label="Plugins"
-              value={bus.pluginCount}
+              value={bus.extensionCount}
               tone="ok"
               onClick={goBus}
-              title={`${bus.pluginCount} plugins loaded · ${t('dashboard.clickToBusDetail')}`}
+              title={`${bus.extensionCount} plugins loaded · ${t('dashboard.clickToBusDetail')}`}
             />
             <StatCard
               label="Broken"

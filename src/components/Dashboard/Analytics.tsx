@@ -4,7 +4,7 @@
 // provider Run counts, AG-UI events) are gone — there's no Run model anymore.
 // What remains useful at the dashboard level:
 //   - Session totals (count, running, agents-per-session)
-//   - Bus host snapshot + Plugins by kind (unchanged — Bus subsystem stays)
+//   - Bus host snapshot + Extensions by kind (unchanged — Bus subsystem stays)
 //   - Sessions by default-dir distribution
 //   - Active sessions table (sessions with at least one running agent)
 
@@ -21,7 +21,7 @@ import { emitDeepLink, clearDeepLink } from '@forgeax/interface/lib/deep-link-bu
 import { useTranslation } from '@forgeax/interface/i18n';
 
 interface BusHealth {
-  pluginCount: number;
+  extensionCount: number;
   brokenCount: number;
   listenerCount: number;
   ringSize: number;
@@ -62,7 +62,7 @@ export function Analytics() {
   const [sessions, setSessions] = useState<SessionListItem[]>([]);
   const [summaries, setSummaries] = useState<Map<string, SessionAgentSummary>>(new Map());
   const [busHealth, setBusHealth] = useState<BusHealth | null>(null);
-  const [busPlugins, setBusPlugins] = useState<ExtensionInfo[] | null>(null);
+  const [busExtensions, setBusExtensions] = useState<ExtensionInfo[] | null>(null);
   const [surfaces, setSurfaces] = useState<{ count: number; aiActions: number; totalActions: number } | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
@@ -94,7 +94,7 @@ export function Analytics() {
         ]);
         setSessions(s.sessions);
         if (h?.bus) setBusHealth(h.bus);
-        if (p) setBusPlugins(p.items);
+        if (p) setBusExtensions(p.items);
         setErr(null);
       } catch (e) { setErr((e as Error).message); }
     };
@@ -135,8 +135,8 @@ export function Analytics() {
   }, []);
 
   const byKind: Record<string, number> = {};
-  if (busPlugins) for (const p of busPlugins) byKind[p.kind] = (byKind[p.kind] ?? 0) + 1;
-  const kindTotal = busPlugins?.length ?? 0;
+  if (busExtensions) for (const p of busExtensions) byKind[p.kind] = (byKind[p.kind] ?? 0) + 1;
+  const kindTotal = busExtensions?.length ?? 0;
   const maxKind = Math.max(1, ...KIND_ORDER.map((k) => byKind[k.id] ?? 0));
 
   const { totals, byDir } = summarizeSessions(sessions, summaries);
@@ -173,26 +173,26 @@ export function Analytics() {
       {busHealth && (
         <>
           <h3 className="dash-h3">
-            Bus host <span className="dash-h3-sub">— plugin host snapshot @ /api/bus</span>
+            Bus host <span className="dash-h3-sub">— extension host snapshot @ /api/bus</span>
           </h3>
           <div className="dash-stat-row dash-stat-row-bus">
             <button
               type="button"
               className="dash-stat is-link dash-stat-ok"
               onClick={goBus}
-              title={`${busHealth.pluginCount} plugin${busHealth.pluginCount === 1 ? '' : 's'} loaded · ${t('analytics.clickToBusDetail')}`}
+              title={`${busHealth.extensionCount} extension${busHealth.extensionCount === 1 ? '' : 's'} loaded · ${t('analytics.clickToBusDetail')}`}
             >
-              <div className="dash-stat-label">Plugins</div>
-              <div className="dash-stat-value">{busHealth.pluginCount}</div>
+              <div className="dash-stat-label">Extensions</div>
+              <div className="dash-stat-value">{busHealth.extensionCount}</div>
             </button>
             <button
               type="button"
               className={`dash-stat is-link ${busHealth.brokenCount === 0 ? 'dash-stat-ok' : 'dash-stat-idle'}`}
               onClick={goBus}
-              title={`${busHealth.pluginCount - busHealth.brokenCount} healthy · ${t('analytics.clickToBusDetail')}`}
+              title={`${busHealth.extensionCount - busHealth.brokenCount} healthy · ${t('analytics.clickToBusDetail')}`}
             >
               <div className="dash-stat-label">Healthy</div>
-              <div className="dash-stat-value">{busHealth.pluginCount - busHealth.brokenCount}</div>
+              <div className="dash-stat-value">{busHealth.extensionCount - busHealth.brokenCount}</div>
             </button>
             <button
               type="button"
@@ -238,12 +238,12 @@ export function Analytics() {
             )}
           </div>
 
-          {busPlugins && (
+          {busExtensions && (
             <>
               <h3 className="dash-h3">
-                Plugins by kind
+                Extensions by kind
                 <span className="dash-h3-sub">
-                  — {kindTotal} plugins · {KIND_ORDER.filter((k) => (byKind[k.id] ?? 0) > 0).length} kinds active · click → bus admin
+                  — {kindTotal} extensions · {KIND_ORDER.filter((k) => (byKind[k.id] ?? 0) > 0).length} kinds active · click → bus admin
                 </span>
               </h3>
               <div className="dash-kind-bars">
@@ -266,7 +266,7 @@ export function Analytics() {
                       type="button"
                       key={k.id}
                       className={`dash-kind-row k-${k.id} is-link`}
-                      title={`${k.label} · ${n} plugin${n === 1 ? '' : 's'} · ${t('analytics.clickToBusAdminFilter', { label: k.label })}`}
+                      title={`${k.label} · ${n} extension${n === 1 ? '' : 's'} · ${t('analytics.clickToBusAdminFilter', { label: k.label })}`}
                       onClick={() => goBusKind(k.id)}
                     >
                       <span className="dash-kind-name">{k.label}</span>
