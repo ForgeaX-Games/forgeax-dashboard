@@ -366,7 +366,7 @@
    Daemon's first visit to Analytics; this widget makes bus inventory visible
    alongside Run analytics. Color family locks to Sidebar BUS KINDS footer
    (P2.7i .ss-kind-chip.k-*) and BusAdminPanel chips (P2.6e .ba-chip.k-*) so
-   "lime = workbench / sky-blue = cli-provider / violet = agent / teal =
+   "lime = extension / sky-blue = cli-provider / violet = agent / teal =
    model-binding / amber = skill / orange = tool" is one language across 4
    surfaces now. */
 .dash-kind-bars {
@@ -407,8 +407,8 @@
   font-weight: 700;
   color: var(--fg-1);
 }
-.dash-kind-row.k-workbench     .dash-kind-fill { background: linear-gradient(90deg, rgba(212, 255,  72, 0.85), rgba(212, 255,  72, 0.55)); }
-.dash-kind-row.k-workbench     .dash-kind-name { color: var(--primary); }
+.dash-kind-row.k-extension     .dash-kind-fill { background: linear-gradient(90deg, rgba(212, 255,  72, 0.85), rgba(212, 255,  72, 0.55)); }
+.dash-kind-row.k-extension     .dash-kind-name { color: var(--primary); }
 .dash-kind-row.k-cli-provider  .dash-kind-fill { background: linear-gradient(90deg, rgba(108, 196, 255, 0.85), rgba(108, 196, 255, 0.55)); }
 .dash-kind-row.k-cli-provider  .dash-kind-name { color: var(--color-kind-cli-provider); }
 .dash-kind-row.k-agent         .dash-kind-fill { background: linear-gradient(90deg, rgba(168,  85, 247, 0.85), rgba(168,  85, 247, 0.55)); }
@@ -448,7 +448,7 @@ button.dash-kind-row:focus-visible {
 }
 /* per-kind hover bg + border + 8px tribe glow halo. Same tints as
    .ss-kind-chip.is-link hover (Sidebar BUS KINDS footer P3.37). */
-button.dash-kind-row.k-workbench:hover     { background: rgba(212, 255,  72, 0.10); border-color: rgba(212, 255,  72, 0.55); box-shadow: none; }
+button.dash-kind-row.k-extension:hover     { background: rgba(212, 255,  72, 0.10); border-color: rgba(212, 255,  72, 0.55); box-shadow: none; }
 button.dash-kind-row.k-cli-provider:hover  { background: rgba(108, 196, 255, 0.10); border-color: rgba(108, 196, 255, 0.55); box-shadow: none; }
 button.dash-kind-row.k-agent:hover         { background: rgba(168,  85, 247, 0.12); border-color: rgba(196, 163, 255, 0.55); box-shadow: none; }
 button.dash-kind-row.k-model-binding:hover { background: rgba(126, 231, 196, 0.10); border-color: rgba(126, 231, 196, 0.55); box-shadow: none; }
@@ -1237,7 +1237,7 @@ button.dash-prov-chip.is-selected {
    status). Each chip carries a role-tribe dot (palette pinned to
    .dash-agent-cell-dot.r-*) + agent id + lavender-tinted count pill.
    `.is-orphan` chip dims the id when the agent is not in the current
-   workbench roster (e.g. legacy `forgeax` runs against marketplace id
+   extension roster (e.g. legacy `forgeax` runs against marketplace id
    `forge`) — same honest signal as .dash-agent-cell-dot.r-unknown. */
 .dash-emitter-strip {
   display: flex;
@@ -1379,7 +1379,7 @@ button.dash-emitter-chip.is-link:focus-visible {
 button.dash-emitter-chip.is-link:hover .dash-emitter-chip-arrow { opacity: 1; }
 
 /* P4.41 — BUS KINDS mini-LED row on Dashboard Overview. 6 pill buttons
-   (workbench / agent / cli-provider / model-binding / skill / tool) sitting
+   (extension / agent / cli-provider / model-binding / skill / tool) sitting
    right under the "Bus" h3 and above dash-stat-row-bus. Tribe colors
    mirror BusAdminPanel .ba-md-k-{kind} so the 7th 6-kind dashboard
    surface reads identically to the 6 prior surfaces (TopBar tb-right
@@ -1475,11 +1475,11 @@ button.dash-emitter-chip.is-link:hover .dash-emitter-chip-arrow { opacity: 1; }
 }
 
 /* is-ok per-kind tribe color — 6 variants matching .ba-md-k-{kind}.is-ok */
-.dash-kind-k-workbench.is-ok {
+.dash-kind-k-extension.is-ok {
   border-color: rgba(212, 255, 72, 0.38);
   color: rgba(228, 255, 168, 0.95);
 }
-.dash-kind-k-workbench.is-ok .dash-kind-dot {
+.dash-kind-k-extension.is-ok .dash-kind-dot {
   background: var(--primary);
   box-shadow: none;
 }

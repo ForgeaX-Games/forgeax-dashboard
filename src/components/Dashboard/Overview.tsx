@@ -214,9 +214,9 @@ export function Overview() {
           </h3>
           <div className="dash-kind-strip" role="group" aria-label="Bus plugin distribution by kind">
             <span className="dash-kind-strip-label">BUS KINDS</span>
-            {(['workbench', 'agent', 'cli-provider', 'model-binding', 'skill', 'tool'] as const).map((kind) => {
+            {(['extension', 'agent', 'cli-provider', 'model-binding', 'skill', 'tool'] as const).map((kind) => {
               const KIND_LABEL: Record<string, string> = {
-                workbench: 'WB',
+                extension: 'EXT',
                 agent: 'AGENT',
                 'cli-provider': 'PROV',
                 'model-binding': 'MB',
@@ -224,7 +224,7 @@ export function Overview() {
                 tool: 'TOOL',
               };
               const KIND_LONG: Record<string, string> = {
-                workbench: 'workbench',
+                extension: 'extension',
                 agent: 'agent',
                 'cli-provider': 'cli-provider',
                 'model-binding': 'model-binding',

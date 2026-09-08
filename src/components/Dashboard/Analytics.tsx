@@ -36,7 +36,7 @@ interface UiSurfaceWire {
 }
 
 const KIND_ORDER: { id: string; label: string }[] = [
-  { id: 'workbench',     label: 'workbench' },
+  { id: 'extension',     label: 'extension' },
   { id: 'cli-provider',  label: 'cli-provider' },
   { id: 'agent',         label: 'agent' },
   { id: 'model-binding', label: 'model-binding' },
